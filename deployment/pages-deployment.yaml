@@ -24,7 +24,7 @@ spec:
           hostPath:
             path: /edgware
       containers:
-        - image: sangoviabillar/pages:monitor
+        - image: sangoviabillar/pages:scale
           name: pages
           imagePullPolicy: Always
           volumeMounts:
@@ -50,7 +50,7 @@ spec:
                   name: pages-config-map
                   key: PAGE_CONTENT
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://pages-mysql/pages?useSSL=false
+              value: jdbc:mysql://pages-mysql/pages?allowPublicKeyRetrieval=true&useSSL=false
             - name: SPRING_DATASOURCE_USERNAME
               value: "root"
             - name: SPRING_DATASOURCE_PASSWORD
