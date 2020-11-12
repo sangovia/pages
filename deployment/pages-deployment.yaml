@@ -24,8 +24,9 @@ spec:
           hostPath:
             path: /edgware
       containers:
-        - image: sangoviabillar/pages:service
+        - image: sangoviabillar/pages:monitor
           name: pages
+          imagePullPolicy: Always
           volumeMounts:
             - name: node-dir
               mountPath: /edgware
