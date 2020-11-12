@@ -3,9 +3,8 @@ kind: Service
 metadata:
   labels:
     app: pages
-    tier: service
   name: pages
-  namespace: [student-name]
+  namespace: edgware
 spec:
   ports:
     - name: pages-service-port
@@ -14,5 +13,4 @@ spec:
       targetPort: 8080
   selector:
     app: pages
-    tier: service
   type: NodePort
