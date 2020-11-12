@@ -21,6 +21,12 @@ public class HomeApiTest {
     }
 
     @Test
+    public void healthTest(){
+        String body = this.restTemplate.getForObject("/actuator/health", String.class);
+        assertThat(body).contains("UP");
+    }
+
+    @Test
     public void readTest() {
         String body = this.restTemplate.getForObject("/", String.class);
         assertThat(body).contains("YellowPages");

@@ -19,11 +19,29 @@ spec:
         app: pages
         tier: service
     spec:
+      volumes:
+        - name: node-dir
+          hostPath:
+            path: /edgware
       containers:
         - image: sangoviabillar/pages:service
           name: pages
+          volumeMounts:
+            - name: node-dir
+              mountPath: /edgware
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 30
           env:
             - name: PAGE_CONTENT
               valueFrom:
@@ -39,3 +57,13 @@ spec:
                 secretKeyRef:
                   name: mysql-pass
                   key: password
+            - name: DEBUG
+              value: "true"
+            - name: LOGGING_FILE_NAME
+              value: "edgware/logs/app.log"
+            - name: LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB
+              value: debug
+            - name: LOGGING_LEVEL_ROOT
+              value: debug
+            - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+              value: "*"
