@@ -70,7 +70,7 @@ public class MySqlPageRepository implements IPageRepository {
 
     @Override
     public void delete(long id) {
-        jdbcTemplate.update("DELETE FROM pages WHERE id = ?", id);
+      jdbcTemplate.update("DELETE FROM pages WHERE id = ?", id);
     }
 
     private final RowMapper<Page> mapper = (rs, rowNum) -> new Page(
